@@ -15,6 +15,7 @@ public class DemandeDeSangService {
 
     private final DemandeDeSangRepository repository;
     private final HopitalService hopitalService;
+    private final CentreDeDonService centreService;
 
     public List<DemandeDeSang> findAll() {
         return repository.findAll();
@@ -27,6 +28,19 @@ public class DemandeDeSangService {
     /** Hopital.suivreDemande() */
     public List<DemandeDeSang> findByHopital(Long hopitalId) {
         return repository.findByHopitalId(hopitalId);
+    }
+
+    /** CentreDeDon traite DemandeDeSang */
+    public List<DemandeDeSang> findByCentre(Long centreId) {
+        return repository.findByCentreDeDonId(centreId);
+    }
+
+    /** CentreDeDon.repondreDemande() */
+    public DemandeDeSang repondre(Long centreId, Long id, String statut) {
+        DemandeDeSang d = findById(id);
+        d.setCentreDeDon(centreService.findById(centreId));
+        if (statut != null) d.setStatut(statut);
+        return repository.save(d);
     }
 
     public DemandeDeSang findById(Long id) {
