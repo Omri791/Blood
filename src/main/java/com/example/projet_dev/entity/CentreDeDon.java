@@ -38,5 +38,10 @@ public class CentreDeDon extends Utilisateur {
     @OneToMany(mappedBy = "centreDeDon")
     private List<DemandeDeSang> demandes = new ArrayList<>();
 
-    // TODO: add @OneToMany RendezVous (organise) when that entity is created
+
+    // CentreDeDon 1 --- organise --- 0..* RendezVous
+    @JsonIgnore
+    @OneToMany(mappedBy = "centreDeDon")
+    private List<RendezVous> rendezVous = new ArrayList<>();
+
 }
