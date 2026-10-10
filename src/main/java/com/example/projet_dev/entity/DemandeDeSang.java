@@ -34,7 +34,11 @@ public class DemandeDeSang {
     @JsonIgnoreProperties({"patients", "demandes", "hibernateLazyInitializer", "handler"})
     private Hopital hopital;
 
-    // TODO: add @ManyToOne CentreDeDon (traite) when that entity is created
+    // CentreDeDon 1 --- traite --- 0..* DemandeDeSang
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "centre_de_don_id")
+    @JsonIgnoreProperties({"stocks", "predictions", "demandes", "hibernateLazyInitializer", "handler"})
+    private CentreDeDon centreDeDon;
 
     @PrePersist
     void onCreate() {
